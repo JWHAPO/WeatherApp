@@ -12,7 +12,7 @@ import retrofit2.http.Path
  * Created by JEONGWOOKIM on 2020-01-22.
  * Description: Apis for weather
  */
-interface WeatherApi{
+interface WeatherApi {
     @GET("/api/location/search/?query={query}")
     fun getLocations(@Path("query") query: String): Observable<Location>
 
