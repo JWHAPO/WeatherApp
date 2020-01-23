@@ -15,10 +15,15 @@ import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
  */
 class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     private val query: String = "se"
+    private var isFinishFirstLoading: Boolean = false
 
     private val _refreshing: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
     val refreshing: NotNullMutableLiveData<Boolean>
         get() = _refreshing
+
+    private val _loading: NotNullMutableLiveData<Int> = NotNullMutableLiveData(8)
+    val loading: NotNullMutableLiveData<Int>
+        get() = _loading
 
     private val _items: NotNullMutableLiveData<List<Location>> = NotNullMutableLiveData(arrayListOf())
     val items: NotNullMutableLiveData<List<Location>>
@@ -28,16 +33,23 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         addToDisposable(
             api.getLocations(query).with()
                 .doOnSubscribe {
-                    _refreshing.value = true
+                    _items.value = emptyList()
+                    if(this.isFinishFirstLoading)_refreshing.value = true
+                    else _loading.value = 0
                 }
                 .doOnNext {
-                    _refreshing.value = true
+                    if(this.isFinishFirstLoading)_refreshing.value = true
+                    else _loading.value = 0
                 }
                 .doOnError {
-                    _refreshing.value = false
+                    if(this.isFinishFirstLoading)_refreshing.value = false
+                    else _loading.value = 8
                 }
                 .doOnComplete {
-                    _refreshing.value = false
+                    if(this.isFinishFirstLoading)_refreshing.value = false
+                    else _loading.value = 8
+
+                    this.isFinishFirstLoading = true
                 }
                 .subscribe({
                     _items.value = it
