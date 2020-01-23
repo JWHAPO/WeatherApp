@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="item" type="com.backpac.kjw.weatherapp.data.domain.Location"/>
+        <variable name="vm" type="com.backpac.kjw.weatherapp.ui.main.MainViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemNormalHeightSize"
+            android:padding="@dimen/normalPaddingSize">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/weather_item_image"
+                android:layout_width="@dimen/itemNormalImageSize"
+                android:layout_height="@dimen/itemNormalImageSize"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weather_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="@dimen/subjectTextSize"
+                android:textColor="@color/textColor"
+                android:text="@{item.title}"
+                app:layout_constraintLeft_toRightOf="@+id/weather_item_image"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/weather_item_humidity"
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weather_item_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="@dimen/contentsTextSize"
+                android:textColor="@color/textColor"
+                android:text="@{item.latt_long}"
+                app:layout_constraintLeft_toRightOf="@+id/weather_item_image"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weather_item_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

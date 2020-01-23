@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TEXT SIZE -->
     <dimen name="titleTextSize">20dp</dimen>
     <dimen name="subjectTextSize">14dp</dimen>
     <dimen name="contentsTextSize">10dp</dimen>
+
+    <!-- WIDGET SIZE -->
+    <dimen name="itemNormalHeightSize">80dp</dimen>
+    <dimen name="itemNormalImageSize">70dp</dimen>
+
+    <!-- PADDING -->
+    <dimen name="normalPaddingSize">4dp</dimen>
+
 </resources>
