@@ -11,5 +11,6 @@
 
     <!-- PADDING -->
     <dimen name="normalPaddingSize">4dp</dimen>
+    <dimen name="bigPaddingSize">8dp</dimen>
 
 </resources>

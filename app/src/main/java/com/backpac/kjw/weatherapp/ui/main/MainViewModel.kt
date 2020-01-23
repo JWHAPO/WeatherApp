@@ -1,5 +1,6 @@
 package com.backpac.kjw.weatherapp.ui.main
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.Location
 import com.backpac.kjw.weatherapp.extension.with
@@ -23,18 +24,31 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     val items: NotNullMutableLiveData<List<Location>>
         get() = _items
 
-    fun getWeather(){
+    fun getWeather() {
         addToDisposable(
             api.getLocations(query).with()
-                .doOnSubscribe{ _refreshing.value = true }
-                .doOnNext { _refreshing.value = true }
-                .doOnError { _refreshing.value = false }
+                .doOnSubscribe {
+                    _refreshing.value = true
+                }
+                .doOnNext {
+                    _refreshing.value = true
+                }
+                .doOnError {
+                    _refreshing.value = false
+                }
+                .doOnComplete {
+                    _refreshing.value = false
+                }
                 .subscribe({
                     _items.value = it
-                },{
+                }, {
                     //error
                 })
         )
+    }
+
+    fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        getWeather()
     }
 
 }

@@ -8,5 +8,4 @@ package com.backpac.kjw.weatherapp.constant
  */
 object Constants{
     const val BASE_URL = "https://www.metaweather.com"
-
 }

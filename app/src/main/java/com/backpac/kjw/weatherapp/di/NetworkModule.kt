@@ -2,7 +2,8 @@ package com.backpac.kjw.weatherapp.di
 
 import com.backpac.kjw.weatherapp.BuildConfig
 import com.backpac.kjw.weatherapp.constant.Constants
-import com.backpac.kjw.weatherapp.data.api.WeatherApi
+import com.google.gson.GsonBuilder
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -23,37 +24,30 @@ private const val WRITE_TIMEOUT: Long = 15L
 private const val READ_TIMEOUT: Long = 15L
 
 val networkModule = module {
+    single { GsonBuilder().create() }
 
     single {
-        okHttp()
+        OkHttpClient.Builder().apply {
+            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                    else HttpLoggingInterceptor.Level.NONE
+                }
+            )
+        }.build()
     }
 
     single {
-        retrofit()
-    }
-
-    single {
-        get<Retrofit>().create(WeatherApi::class.java)
+        Retrofit.Builder().apply {
+            baseUrl(Constants.BASE_URL)
+            addConverterFactory(GsonConverterFactory.create())
+            addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            client(get())
+        }.build()
     }
 
 }
-
-private fun okHttp() = OkHttpClient.Builder().apply {
-    connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-    writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-    readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-    addInterceptor(
-        HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-            else HttpLoggingInterceptor.Level.NONE
-        }
-    )
-}.build()
-
-private fun retrofit() = Retrofit.Builder().apply {
-    baseUrl(Constants.BASE_URL)
-    addConverterFactory(GsonConverterFactory.create())
-    addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-    client(okHttp())
-}.build()
 

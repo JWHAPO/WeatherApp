@@ -10,13 +10,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/normalPaddingSize"
             tools:context=".ui.main.MainActivity">
 
         <TextView
-                android:id="@+id/main_app_title_tv"
+                android:id="@+id/main_app_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/normalPaddingSize"
+                android:paddingTop="@dimen/bigPaddingSize"
                 android:text="@string/app_name"
                 android:textSize="@dimen/titleTextSize"
                 android:textStyle="bold"
@@ -29,14 +30,16 @@
                 android:id="@+id/weather_swipe_layout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:paddingTop="@dimen/bigPaddingSize"
                 app:refreshing="@{safeUnbox(vm.refreshing)}"
-                app:layout_constraintTop_toBottomOf="@+id/main_app_title_tv"
+                app:onRefreshListener="@{vm.onRefreshListener}"
+                app:layout_constraintTop_toBottomOf="@+id/main_app_title_text_view"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weather_rv"
+                    android:id="@+id/weather_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -44,6 +47,15 @@
                     app:items="@{vm.items}"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+                android:id="@+id/weather_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
