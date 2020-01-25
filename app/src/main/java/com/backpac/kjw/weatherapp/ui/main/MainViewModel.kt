@@ -8,6 +8,7 @@ import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
+import io.reactivex.Single
 
 /**
  * WeatherApp
@@ -32,45 +33,44 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         get() = _items
 
     fun getWeather() {
+
         addToDisposable(
             api.getLocations(query).with()
-                .doOnSubscribe {
-                    _items.value = emptyList()
-                    if(this.isFinishFirstLoading)_refreshing.value = true
-                    else _loading.value = 0
-                }
-                .doOnNext {
-                    if(this.isFinishFirstLoading)_refreshing.value = true
-                    else _loading.value = 0
-                }
-                .doOnError {
-                    if(this.isFinishFirstLoading)_refreshing.value = false
-                    else _loading.value = 8
-                }
-                .doOnComplete {
-                    if(this.isFinishFirstLoading)_refreshing.value = false
-                    else _loading.value = 8
-
-                    this.isFinishFirstLoading = true
-                }
-                .subscribe({
-                    _items.value = it
-
-                    Observable.fromIterable(it)
-                        .flatMap {s ->
-                            api.getWeathers(s.woeid)
-                                .with()
-                                .doOnSubscribe {  }
-                                .doOnNext{  }
-                                .doOnError {  }
-                                .doOnComplete {
-                                    Log.e("TAG", "${it.toString()}")
-                                }
-                        }
-                }, {
-                    //error
-                })
+                .flatMap { itemList -> Observable.fromIterable(itemList) }
+                .flatMap { item -> api.getWeathers(item.woeid).with()}
+                .subscribe (
+                    {
+                        print(it.toString())
+                    },{
+                        print(it.toString())
+                    }
+                )
         )
+
+
+//        addToDisposable(
+//            api.getLocations(query).with()
+//                .doOnSubscribe {
+//                    _items.value = emptyList()
+//                    if(this.isFinishFirstLoading)_refreshing.value = true
+//                    else _loading.value = 0
+//                }
+//                .doOnError {
+//                    if(this.isFinishFirstLoading)_refreshing.value = false
+//                    else _loading.value = 8
+//                }
+//                .doOnSuccess {
+//                    if(this.isFinishFirstLoading)_refreshing.value = false
+//                    else _loading.value = 8
+//
+//                    this.isFinishFirstLoading = true
+//                }
+//                .subscribe({
+//                    _items.value = it
+//                }, {
+//                    //error
+//                })
+//        )
     }
 
     fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener = SwipeRefreshLayout.OnRefreshListener {

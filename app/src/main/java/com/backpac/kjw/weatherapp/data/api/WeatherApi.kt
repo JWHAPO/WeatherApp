@@ -1,6 +1,7 @@
 package com.backpac.kjw.weatherapp.data.api
 
 import com.backpac.kjw.weatherapp.data.domain.Location
+import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,5 +18,5 @@ interface WeatherApi {
     fun getLocations(@Query("query") query: String): Observable<List<Location>>
 
     @GET("/api/location/{woeid}")
-    fun getWeathers(@Path("woeid") woeid: Int): Observable<List<Location>>
+    fun getWeathers(@Path("woeid") woeid: Int): Observable<Weather>
 }

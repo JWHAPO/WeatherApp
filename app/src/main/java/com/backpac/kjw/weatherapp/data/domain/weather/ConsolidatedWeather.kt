@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
  * Description: ConsolidatedWeather of weather data
  */
 data class ConsolidatedWeather(
-    @SerializedName("id") val id: Int,
+    @SerializedName("id") val id: Long,
     @SerializedName("weather_state_name") val weather_state_name: String,
     @SerializedName("weather_state_abbr") val weather_state_abbr: String,
     @SerializedName("wind_direction_compass") val wind_direction_compass: String,
