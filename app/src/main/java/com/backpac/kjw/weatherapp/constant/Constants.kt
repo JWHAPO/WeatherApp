@@ -8,4 +8,5 @@ package com.backpac.kjw.weatherapp.constant
  */
 object Constants{
     const val BASE_URL = "https://www.metaweather.com"
+    const val WEATHER_ICON_PATH = "$BASE_URL/static/img/weather/X.svg"
 }

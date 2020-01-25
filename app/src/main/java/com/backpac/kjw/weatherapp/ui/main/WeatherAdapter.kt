@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.backpac.kjw.weatherapp.R
-import com.backpac.kjw.weatherapp.data.domain.Location
+import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.databinding.ItemWeatherBinding
 import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
 
@@ -15,7 +15,7 @@ import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
  * Created by JEONGWOOKIM on 2020-01-23.
  * Description: Weather list adapter
  */
-class WeatherAdapter(var items: List<Location> = arrayListOf(), val vm: MainViewModel) :
+class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewModel) :
     RecyclerView.Adapter<WeatherAdapter.WeatherAdapterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherAdapterViewHolder {

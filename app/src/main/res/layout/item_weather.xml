@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="item" type="com.backpac.kjw.weatherapp.data.domain.Location"/>
+        <variable name="item" type="com.backpac.kjw.weatherapp.data.domain.weather.Weather"/>
         <variable name="vm" type="com.backpac.kjw.weatherapp.ui.main.MainViewModel"/>
     </data>
 

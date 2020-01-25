@@ -2,8 +2,10 @@ package com.backpac.kjw.weatherapp.ui.main
 
 import android.util.Log
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.backpac.kjw.weatherapp.constant.Constants
 import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.Location
+import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
@@ -28,53 +30,52 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     val loading: NotNullMutableLiveData<Int>
         get() = _loading
 
-    private val _items: NotNullMutableLiveData<List<Location>> = NotNullMutableLiveData(arrayListOf())
-    val items: NotNullMutableLiveData<List<Location>>
+    private val _items: NotNullMutableLiveData<List<Weather>> =
+        NotNullMutableLiveData(arrayListOf())
+    val items: NotNullMutableLiveData<List<Weather>>
         get() = _items
 
     fun getWeather() {
 
         addToDisposable(
             api.getLocations(query).with()
-                .flatMap { itemList -> Observable.fromIterable(itemList) }
-                .flatMap { item -> api.getWeathers(item.woeid).with()}
-                .subscribe (
+                .flatMap { itemList ->
+                    Observable.fromIterable(itemList).flatMap { item ->
+                        api.getWeathers(item.woeid).with()
+                    }
+                }
+                .toList()
+                .doOnSubscribe {
+                    _items.value = emptyList()
+                    if (this.isFinishFirstLoading) _refreshing.value = true
+                    else _loading.value = 0
+                }
+                .doOnSuccess {
+                    if (this.isFinishFirstLoading) _refreshing.value = false
+                    else _loading.value = 8
+
+                    this.isFinishFirstLoading = true
+                }
+                .subscribe(
                     {
-                        print(it.toString())
-                    },{
-                        print(it.toString())
+//                        for( a in it){
+//                            for( b in a.consolidated_weather){
+//                                b.image_url = "${Constants.WEATHER_ICON_PATH}".replace("X",b.weather_state_abbr)
+//                            }
+//                        }
+
+                        _items.value = it
+                    }, {
+                        if (this.isFinishFirstLoading) _refreshing.value = false
+                        else _loading.value = 8
                     }
                 )
         )
-
-
-//        addToDisposable(
-//            api.getLocations(query).with()
-//                .doOnSubscribe {
-//                    _items.value = emptyList()
-//                    if(this.isFinishFirstLoading)_refreshing.value = true
-//                    else _loading.value = 0
-//                }
-//                .doOnError {
-//                    if(this.isFinishFirstLoading)_refreshing.value = false
-//                    else _loading.value = 8
-//                }
-//                .doOnSuccess {
-//                    if(this.isFinishFirstLoading)_refreshing.value = false
-//                    else _loading.value = 8
-//
-//                    this.isFinishFirstLoading = true
-//                }
-//                .subscribe({
-//                    _items.value = it
-//                }, {
-//                    //error
-//                })
-//        )
     }
 
-    fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        getWeather()
-    }
+    fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener =
+        SwipeRefreshLayout.OnRefreshListener {
+            getWeather()
+        }
 
 }

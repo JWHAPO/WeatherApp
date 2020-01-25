@@ -23,5 +23,6 @@ data class ConsolidatedWeather(
     @SerializedName("air_pressure") val air_pressure: Double,
     @SerializedName("humidity") val humidity: Int,
     @SerializedName("visibility") val visibility: Double,
-    @SerializedName("predictability") val predictability: Int
+    @SerializedName("predictability") val predictability: Int,
+    var image_url: String
 )
