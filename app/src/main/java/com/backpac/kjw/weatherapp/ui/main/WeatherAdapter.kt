@@ -21,7 +21,6 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
 
     private val HEADER_TYPE: Int = 0
     private val ITEM_TYPE: Int = 1
-    private val HEADER_SIZE: Int = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == HEADER_TYPE) {
@@ -37,7 +36,7 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeatherAdapterViewHolder) {
-            holder.viewDataBinding.item = items[position - HEADER_SIZE]
+            holder.viewDataBinding.item = items[position]
             holder.viewDataBinding.vm = vm
         }
 
@@ -51,7 +50,7 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
         }
     }
 
-    override fun getItemCount(): Int = items.size + 1
+    override fun getItemCount(): Int = items.size
 
     class WeatherAdapterViewHolder(view: View) : BaseViewHolder<ItemWeatherBinding>(view)
     class WeatherHeaderAdapterViewHolder(view: View) : BaseViewHolder<HeaderWeatherBinding>(view)
