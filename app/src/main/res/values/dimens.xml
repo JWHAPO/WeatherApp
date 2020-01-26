@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- TEXT SIZE -->
-    <dimen name="titleTextSize">28dp</dimen>
-    <dimen name="subjectTextSize">14dp</dimen>
-    <dimen name="contentsTextSize">10dp</dimen>
+    <dimen name="titleTextSize">30dp</dimen>
+    <dimen name="subjectTextSize">12dp</dimen>
+    <dimen name="contentsTextSize">14dp</dimen>
 
     <!-- WIDGET SIZE -->
-    <dimen name="itemNormalHeightSize">80dp</dimen>
+    <dimen name="itemNormalHeightSize">78dp</dimen>
     <dimen name="headerNormalHeightSize">40dp</dimen>
-    <dimen name="itemNormalImageSize">70dp</dimen>
+    <dimen name="itemNormalImageSize">68dp</dimen>
 
     <!-- PADDING -->
     <dimen name="normalPaddingSize">4dp</dimen>

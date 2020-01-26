@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.backpac.kjw.weatherapp.R
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
+import com.backpac.kjw.weatherapp.databinding.HeaderWeatherBinding
 import com.backpac.kjw.weatherapp.databinding.ItemWeatherBinding
 import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
 
@@ -16,23 +17,42 @@ import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
  * Description: Weather list adapter
  */
 class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewModel) :
-    RecyclerView.Adapter<WeatherAdapter.WeatherAdapterViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val WEATHER_HEADER_TYPE = 0
-    private val WEATHER_ITEM_TYPE = 1
+    private val HEADER_TYPE: Int = 0
+    private val ITEM_TYPE: Int = 1
+    private val HEADER_SIZE: Int = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherAdapterViewHolder {
-        return WeatherAdapterViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_weather, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == HEADER_TYPE) {
+            WeatherHeaderAdapterViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.header_weather, parent, false)
+            )
+        } else {
+            WeatherAdapterViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_weather, parent, false)
+            )
+        }
     }
 
-    override fun onBindViewHolder(holder: WeatherAdapterViewHolder, position: Int) {
-        holder.viewDataBinding.item = items[position]
-        holder.viewDataBinding.vm = vm
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is WeatherAdapterViewHolder) {
+            holder.viewDataBinding.item = items[position - HEADER_SIZE]
+            holder.viewDataBinding.vm = vm
+        }
+
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) {
+            HEADER_TYPE
+        } else {
+            ITEM_TYPE
+        }
+    }
+
+    override fun getItemCount(): Int = items.size + 1
 
     class WeatherAdapterViewHolder(view: View) : BaseViewHolder<ItemWeatherBinding>(view)
+    class WeatherHeaderAdapterViewHolder(view: View) : BaseViewHolder<HeaderWeatherBinding>(view)
 }
