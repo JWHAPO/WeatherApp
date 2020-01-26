@@ -18,6 +18,9 @@ import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
 class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewModel) :
     RecyclerView.Adapter<WeatherAdapter.WeatherAdapterViewHolder>() {
 
+    private val WEATHER_HEADER_TYPE = 0
+    private val WEATHER_ITEM_TYPE = 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherAdapterViewHolder {
         return WeatherAdapterViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_weather, parent, false)

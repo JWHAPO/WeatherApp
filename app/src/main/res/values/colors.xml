@@ -4,8 +4,15 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#BDBDBD</color>
 
-    <color name="tempTextColor">#FF2424</color>
-    <color name="textColor">#000000</color>
+    <color name="tempTextColor">#B94741</color>
+    <color name="contentsTextColor">#4B4A4B</color>
+    <color name="titleTextColor">#000000</color>
 
     <color name="greyColorAccent">#D8D8D8</color>
+
+
+    <color name="headerBackgroundColor">#FAF9FA</color>
+    <color name="itemBackgroundColor">#FFFFFF</color>
+
+    <color name="listBorderColor">#DEDDDE</color>
 </resources>

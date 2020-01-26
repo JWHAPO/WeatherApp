@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/header_weather_location_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Local"
+                android:textColor="@color/contentsTextColor"
+                android:textSize="@dimen/subjectTextSize"
+                android:background="@drawable/header_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/header_weather_today_text_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/header_weather_today_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Today"
+                android:textColor="@color/contentsTextColor"
+                android:textSize="@dimen/titleTextSize"
+                android:textStyle="bold"
+                android:background="@drawable/header_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="4"
+                app:layout_constraintLeft_toRightOf="@+id/header_weather_location_text_view"
+                app:layout_constraintRight_toLeftOf="@+id/header_weather_tomorrow_text_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/header_weather_tomorrow_text_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Tomorrow"
+                android:textColor="@color/contentsTextColor"
+                android:textSize="@dimen/titleTextSize"
+                android:textStyle="bold"
+                android:background="@drawable/header_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="4"
+                app:layout_constraintLeft_toRightOf="@+id/header_weather_today_text_view"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
