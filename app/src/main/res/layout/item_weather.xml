@@ -7,7 +7,12 @@
         <variable
                 name="item"
                 type="com.backpac.kjw.weatherapp.data.domain.weather.Weather" />
-
+        <variable
+                name="today"
+                type="com.backpac.kjw.weatherapp.data.domain.weather.ConsolidatedWeather" />
+        <variable
+                name="tomorrow"
+                type="com.backpac.kjw.weatherapp.data.domain.weather.ConsolidatedWeather" />
         <variable
                 name="vm"
                 type="com.backpac.kjw.weatherapp.ui.main.MainViewModel" />
@@ -60,7 +65,7 @@
                     android:id="@+id/item_weather_today_state_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Heavy Rain"
+                    android:text="@{today.weather_state_name}"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
                     app:layout_constraintBottom_toTopOf="@+id/item_weather_today_temp_text_view"
@@ -71,7 +76,7 @@
                     android:id="@+id/item_weather_today_temp_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="17"
+                    android:text="@{Double.toString(Math.ceil(today.the_temp))}"
                     android:textStyle="bold"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
@@ -95,7 +100,7 @@
                     android:id="@+id/item_weather_today_humidity_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="80"
+                    android:text="@{Integer.toString(today.humidity)}"
                     android:textStyle="bold"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
@@ -144,7 +149,7 @@
                     android:id="@+id/item_weather_tomorrow_state_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Heavy Rain"
+                    android:text="@{tomorrow.weather_state_name}"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
                     app:layout_constraintBottom_toTopOf="@+id/item_weather_tomorrow_temp_text_view"
@@ -155,7 +160,7 @@
                     android:id="@+id/item_weather_tomorrow_temp_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="17"
+                    android:text="@{Double.toString(Math.ceil(tomorrow.the_temp))}"
                     android:textStyle="bold"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
@@ -179,7 +184,7 @@
                     android:id="@+id/item_weather_tomorrow_humidity_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="80"
+                    android:text="@{Integer.toString(tomorrow.humidity)}"
                     android:textStyle="bold"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
