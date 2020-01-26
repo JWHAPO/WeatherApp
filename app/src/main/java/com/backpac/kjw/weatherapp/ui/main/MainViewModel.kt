@@ -58,12 +58,6 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                 }
                 .subscribe(
                     {
-//                        for( a in it){
-//                            for( b in a.consolidated_weather){
-//                                b.image_url = "${Constants.WEATHER_ICON_PATH}".replace("X",b.weather_state_abbr)
-//                            }
-//                        }
-
                         _items.value = it
                     }, {
                         if (this.isFinishFirstLoading) _refreshing.value = false
