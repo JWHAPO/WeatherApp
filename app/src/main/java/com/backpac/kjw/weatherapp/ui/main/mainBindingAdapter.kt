@@ -46,8 +46,8 @@ fun convertTemp(view: TextView, value: Double) {
 }
 
 @BindingAdapter("weatherIcon")
-fun setWeatherIcon(view: ImageView, stateAbbr: String) {
-    val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", stateAbbr)
+fun setWeatherIcon(view: ImageView, stateAbbr: String?) {
+    val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", stateAbbr?:"")
     Glide.with(view.context)
         .load(iconUrl)
         .diskCacheStrategy(DiskCacheStrategy.NONE)
