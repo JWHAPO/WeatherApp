@@ -5,6 +5,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseMethod
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.backpac.kjw.weatherapp.constant.Constants
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -45,9 +47,15 @@ fun convertTemp(view: TextView, value: Double) {
 }
 
 @BindingAdapter("weatherIcon")
-fun setWeatherIcon(view: ImageView, iconUrl: String) {
+fun setWeatherIcon(view: ImageView, stateAbbr: String) {
+    val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", stateAbbr)
     Glide.with(view.context)
         .load(iconUrl)
         .diskCacheStrategy(DiskCacheStrategy.NONE)
         .into(view)
+}
+
+@BindingAdapter("refreshing")
+fun SwipeRefreshLayout.refreshing(visible: Boolean) {
+    isRefreshing = visible
 }

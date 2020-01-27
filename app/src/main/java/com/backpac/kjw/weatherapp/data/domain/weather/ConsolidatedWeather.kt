@@ -24,7 +24,4 @@ class ConsolidatedWeather {
 
     @SerializedName("humidity")
     val humidity: Int = 0
-
-    val weather_state_icon: String
-        get() = Constants.WEATHER_ICON_PATH.replace("X", weather_state_abbr)
 }
