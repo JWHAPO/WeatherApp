@@ -7,12 +7,15 @@
         <variable
                 name="item"
                 type="com.backpac.kjw.weatherapp.data.domain.weather.Weather" />
+
         <variable
                 name="today"
                 type="com.backpac.kjw.weatherapp.data.domain.weather.ConsolidatedWeather" />
+
         <variable
                 name="tomorrow"
                 type="com.backpac.kjw.weatherapp.data.domain.weather.ConsolidatedWeather" />
+
         <variable
                 name="vm"
                 type="com.backpac.kjw.weatherapp.ui.main.MainViewModel" />
@@ -26,12 +29,12 @@
                 android:id="@+id/item_weather_location_text_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/item_background"
                 android:gravity="center"
+                android:padding="1dp"
                 android:text="@{item.title}"
                 android:textColor="@color/contentsTextColor"
                 android:textSize="@dimen/subjectTextSize"
-                android:padding="1dp"
-                android:background="@drawable/item_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -53,9 +56,9 @@
                     android:id="@+id/item_weather_today_icon_image_view"
                     android:layout_width="@dimen/itemNormalImageSize"
                     android:layout_height="@dimen/itemNormalImageSize"
-                    android:scaleType="fitCenter"
                     android:padding="@dimen/bigPaddingSize"
-                    android:src="@drawable/ic_s"
+                    android:scaleType="fitCenter"
+                    app:weatherIcon="@{today.weather_state_icon}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/item_weather_today_state_text_view"
@@ -76,10 +79,10 @@
                     android:id="@+id/item_weather_today_temp_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Double.toString(Math.ceil(today.the_temp))}"
-                    android:textStyle="bold"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
+                    android:textStyle="bold"
+                    app:convertTemp="@{today.the_temp}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_today_icon_image_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_today_state_text_view" />
@@ -88,10 +91,10 @@
                     android:id="@+id/item_weather_today_temp_uom_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/bigPaddingSize"
                     android:text="℃"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
-                    android:paddingRight="@dimen/bigPaddingSize"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_today_temp_text_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_today_state_text_view" />
@@ -101,9 +104,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(today.humidity)}"
-                    android:textStyle="bold"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_today_temp_uom_text_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_today_state_text_view" />
@@ -137,9 +140,9 @@
                     android:id="@+id/item_weather_tomorrow_icon_image_view"
                     android:layout_width="@dimen/itemNormalImageSize"
                     android:layout_height="@dimen/itemNormalImageSize"
-                    android:scaleType="fitCenter"
                     android:padding="@dimen/bigPaddingSize"
-                    android:src="@drawable/ic_s"
+                    android:scaleType="fitCenter"
+                    app:weatherIcon="@{tomorrow.weather_state_icon}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/item_weather_tomorrow_state_text_view"
@@ -160,10 +163,10 @@
                     android:id="@+id/item_weather_tomorrow_temp_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Double.toString(Math.ceil(tomorrow.the_temp))}"
-                    android:textStyle="bold"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
+                    android:textStyle="bold"
+                    app:convertTemp="@{tomorrow.the_temp}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_tomorrow_icon_image_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_tomorrow_state_text_view" />
@@ -172,10 +175,10 @@
                     android:id="@+id/item_weather_tomorrow_temp_uom_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/bigPaddingSize"
                     android:text="℃"
                     android:textColor="@color/tempTextColor"
                     android:textSize="@dimen/contentsTextSize"
-                    android:paddingRight="@dimen/bigPaddingSize"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_tomorrow_temp_text_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_tomorrow_state_text_view" />
@@ -185,9 +188,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(tomorrow.humidity)}"
-                    android:textStyle="bold"
                     android:textColor="@color/contentsTextColor"
                     android:textSize="@dimen/contentsTextSize"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/item_weather_tomorrow_temp_uom_text_view"
                     app:layout_constraintTop_toBottomOf="@+id/item_weather_tomorrow_state_text_view" />

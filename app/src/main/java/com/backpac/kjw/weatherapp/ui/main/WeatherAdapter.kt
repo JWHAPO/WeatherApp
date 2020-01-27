@@ -9,6 +9,9 @@ import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.databinding.HeaderWeatherBinding
 import com.backpac.kjw.weatherapp.databinding.ItemWeatherBinding
 import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
+import com.backpac.kjw.weatherapp.util.DateUtil
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 /**
  * WeatherApp
@@ -37,11 +40,10 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeatherAdapterViewHolder) {
             holder.viewDataBinding.item = items[position]
-            holder.viewDataBinding.today = items[position].consolidated_weather.filter { it.applicable_date.contains("2020-01-27",true) }[0]
-            holder.viewDataBinding.tomorrow = items[position].consolidated_weather.filter { it.applicable_date.contains("2020-01-28",true) }[0]
+            holder.viewDataBinding.today = items[position].consolidated_weather.filter { it.applicable_date.contains(DateUtil.getToday(),true) }[0]
+            holder.viewDataBinding.tomorrow = items[position].consolidated_weather.filter { it.applicable_date.contains(DateUtil.getTomorrow(),true) }[0]
             holder.viewDataBinding.vm = vm
         }
-
     }
 
     override fun getItemViewType(position: Int): Int {
