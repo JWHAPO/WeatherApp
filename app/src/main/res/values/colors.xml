@@ -13,6 +13,7 @@
 
     <color name="headerBackgroundColor">#FAF9FA</color>
     <color name="itemBackgroundColor">#FFFFFF</color>
+    <color name="mainBackgroundColor">#FFFFFF</color>
 
     <color name="listBorderColor">#DEDDDE</color>
 </resources>

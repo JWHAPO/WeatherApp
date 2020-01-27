@@ -40,13 +40,8 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
         if (holder is WeatherAdapterViewHolder) {
 
             holder.viewDataBinding.item = items[position]
-            if (items[position].consolidated_weather.any { it.applicable_date.contains(DateUtil.getToday(), true) }){
-                holder.viewDataBinding.today = items[position].consolidated_weather.filter { it.applicable_date.contains(DateUtil.getToday(),true) }[0]
-            }
-            if(items[position].consolidated_weather.any { it.applicable_date.contains(DateUtil.getTomorrow(),true) }){
-                holder.viewDataBinding.tomorrow = items[position].consolidated_weather.filter { it.applicable_date.contains(DateUtil.getTomorrow(),true) }[0]
-            }
-
+            holder.viewDataBinding.today = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getToday(),true) }
+            holder.viewDataBinding.tomorrow = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getTomorrow(),true) }
             holder.viewDataBinding.vm = vm
         }
     }
