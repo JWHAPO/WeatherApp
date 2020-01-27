@@ -1,0 +1,54 @@
+
+ext{
+    def androidx_version      = '1.1.0'
+    def swiperelayout_version = '1.0.0'
+    def gson_version          = '2.8.5'
+    def retrofit_version      = '2.5.0'
+    def okhttp_version        = '4.2.2'
+    def glide_version         = '4.9.0'
+    def rxjava_version        = '2.2.10'
+    def rxandroid_version     = '2.1.1'
+    def koin_version          = '2.0.1'
+
+
+    androidxDependencies = [
+            appcompat           : "androidx.appcompat:appcompat:$androidx_version",
+            core_ktx            : "androidx.core:core-ktx:$androidx_version",
+            constraintlayout    : "androidx.constraintlayout:constraintlayout:$androidx_version",
+            recyclerview        : "androidx.recyclerview:recyclerview:$androidx_version",
+            swiperefreshlayout  : "androidx.swiperefreshlayout:swiperefreshlayout:$swiperelayout_version",
+    ]
+
+    retrofitDependencies = [
+            gson                : "com.google.code.gson:gson:$gson_version",
+            retrofit            : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            converter_gson      : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            adapter_rxjava2     : "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+            logging_interceptor : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
+            okhttp              : "com.squareup.okhttp3:okhttp:$okhttp_version",
+    ]
+
+    glideDependencies = [
+            glide               : "com.github.bumptech.glide:glide:$glide_version",
+    ]
+
+    rxjavaDependencies = [
+            rxjava              : "io.reactivex.rxjava2:rxjava:$rxjava_version",
+            rxandroid           : "io.reactivex.rxjava2:rxandroid:$rxandroid_version",
+    ]
+
+    koinDependencies = [
+            core                : "org.koin:koin-core:$koin_version",
+            core_ext            : "org.koin:koin-core-ext:$koin_version",
+            java                : "org.koin:koin-java:$koin_version",
+            androidx_scope      : "org.koin:koin-androidx-scope:$koin_version",
+            androidx_viewmodel  : "org.koin:koin-androidx-viewmodel:$koin_version",
+            androidx_ext        : "org.koin:koin-androidx-ext:$koin_version",
+    ]
+
+
+
+
+
+
+}

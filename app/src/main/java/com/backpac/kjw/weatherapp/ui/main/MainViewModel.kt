@@ -1,16 +1,12 @@
 package com.backpac.kjw.weatherapp.ui.main
 
-import android.util.Log
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.backpac.kjw.weatherapp.constant.Constants
 import com.backpac.kjw.weatherapp.data.api.WeatherApi
-import com.backpac.kjw.weatherapp.data.domain.Location
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
-import io.reactivex.Single
 
 /**
  * WeatherApp
@@ -30,8 +26,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     val loading: NotNullMutableLiveData<Int>
         get() = _loading
 
-    private val _items: NotNullMutableLiveData<List<Weather>> =
-        NotNullMutableLiveData(arrayListOf())
+    private val _items: NotNullMutableLiveData<List<Weather>> = NotNullMutableLiveData(arrayListOf())
     val items: NotNullMutableLiveData<List<Weather>>
         get() = _items
 

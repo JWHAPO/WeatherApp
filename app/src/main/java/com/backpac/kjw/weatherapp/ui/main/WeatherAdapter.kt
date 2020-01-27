@@ -10,8 +10,6 @@ import com.backpac.kjw.weatherapp.databinding.HeaderWeatherBinding
 import com.backpac.kjw.weatherapp.databinding.ItemWeatherBinding
 import com.backpac.kjw.weatherapp.ui.base.BaseViewHolder
 import com.backpac.kjw.weatherapp.util.DateUtil
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 /**
  * WeatherApp

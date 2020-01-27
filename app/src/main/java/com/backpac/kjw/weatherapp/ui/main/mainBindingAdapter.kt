@@ -3,7 +3,6 @@ package com.backpac.kjw.weatherapp.ui.main
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseMethod
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.constant.Constants

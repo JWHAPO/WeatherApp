@@ -1,6 +1,5 @@
 package com.backpac.kjw.weatherapp.data.domain.weather
 
-import com.backpac.kjw.weatherapp.constant.Constants
 import com.google.gson.annotations.SerializedName
 
 /**
