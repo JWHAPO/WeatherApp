@@ -10,6 +10,7 @@ import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.main.MainViewModel
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.junit.After
 import org.junit.Before
@@ -69,7 +70,7 @@ class SimpleTest : KoinTest {
 
     @Test
     fun apiTest() {
-        print("123")
+        print("------API TEST START-------")
 
         api.getLocations("se")
             .subscribeOn(Schedulers.io())
@@ -81,7 +82,6 @@ class SimpleTest : KoinTest {
             },{
                 println(it.toString())
             })
-
 
     }
 }

@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit
  */
 
 private const val CONNECT_TIMEOUT: Long = 15L
-private const val WRITE_TIMEOUT: Long = 15L
 private const val READ_TIMEOUT: Long = 15L
+private const val WRITE_TIMEOUT: Long = 15L
 
 val networkModule = module {
     single { GsonBuilder().create() }
