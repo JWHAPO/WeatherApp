@@ -44,10 +44,11 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                     weathers.clear()
                     _items.value = weathers
 
-                    if (!this.isFinishFirstLoading) {
-                        _loading.value = 0
-                        this.isFinishFirstLoading = true
-                    } else _refreshing.value = true
+                    if (isFinishFirstLoading) _refreshing.value = true
+                    else{
+                        loading.value = 0
+                        isFinishFirstLoading = true
+                    }
                 }
                 .doOnComplete {
                     disableProgressDialog()
