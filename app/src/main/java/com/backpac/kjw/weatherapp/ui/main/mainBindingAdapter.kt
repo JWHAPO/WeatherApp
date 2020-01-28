@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.constant.Constants
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
-import com.bumptech.glide.Glide
+import com.backpac.kjw.weatherapp.util.GlideApp
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import java.util.*
 import kotlin.math.roundToInt
@@ -23,15 +23,14 @@ fun setWeathers(view: RecyclerView, items: List<Weather>, vm: MainViewModel) {
     view.adapter?.run {
         if (this is WeatherAdapter) {
             if (items.isNotEmpty()) {
-                val headerItem = Weather(arrayListOf(),"",0)
+                val headerItem = Weather(arrayListOf(), "", 0)
                 val weatherItems = LinkedList(items)
                 weatherItems.push(headerItem)
                 this.items = weatherItems
-                this.notifyDataSetChanged()
             } else {
                 this.items = items
-                this.notifyDataSetChanged()
             }
+            this.notifyDataSetChanged()
         }
     } ?: run {
         WeatherAdapter(items, vm).apply {
@@ -47,10 +46,10 @@ fun convertTemp(view: TextView, value: Double) {
 
 @BindingAdapter("weatherIcon")
 fun setWeatherIcon(view: ImageView, stateAbbr: String?) {
-    if (stateAbbr==null)return
+    if (stateAbbr == null) return
 
     val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", stateAbbr)
-    Glide.with(view.context)
+    GlideApp.with(view.context)
         .load(iconUrl)
         .diskCacheStrategy(DiskCacheStrategy.NONE)
         .skipMemoryCache(true)

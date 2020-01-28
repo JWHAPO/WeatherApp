@@ -7,7 +7,6 @@ import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
 /**
  * WeatherApp
@@ -18,6 +17,7 @@ import io.reactivex.schedulers.Schedulers
 class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     private val query: String = "se"
     private var isFinishFirstLoading: Boolean = false
+    private val weathers: MutableList<Weather> = mutableListOf()
 
     private val _refreshing: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
     val refreshing: NotNullMutableLiveData<Boolean>
@@ -32,7 +32,6 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         get() = _items
 
     fun getWeather() {
-        var weathers: MutableList<Weather> = mutableListOf()
 
         addToDisposable(
             api.getLocations(query).with()
