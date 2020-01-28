@@ -1,6 +1,5 @@
 package com.backpac.kjw.weatherapp.ui.main
 
-import android.icu.util.TimeZone
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,6 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeatherAdapterViewHolder) {
-
             holder.viewDataBinding.item = items[position]
             holder.viewDataBinding.today = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getToday(),true) }
             holder.viewDataBinding.tomorrow = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getTomorrow(),true) }

@@ -7,6 +7,7 @@ import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * WeatherApp
@@ -31,6 +32,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         get() = _items
 
     fun getWeather() {
+        var weathers: MutableList<Weather> = mutableListOf()
 
         addToDisposable(
             api.getLocations(query).with()
@@ -39,27 +41,30 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                         api.getWeathers(item.woeid).with()
                     }
                 }
-                .toList()
                 .doOnSubscribe {
-                    _items.value = emptyList()
-                    if (this.isFinishFirstLoading) _refreshing.value = true
-                    else _loading.value = 0
-                }
-                .doOnSuccess {
-                    if (this.isFinishFirstLoading) _refreshing.value = false
-                    else _loading.value = 8
+                    weathers.clear()
+                    _items.value = weathers
 
-                    this.isFinishFirstLoading = true
+                    if (!this.isFinishFirstLoading) {
+                        _loading.value = 0
+                        this.isFinishFirstLoading = true
+                    } else _refreshing.value = true
                 }
-                .subscribe(
-                    {
-                        _items.value = it
-                    }, {
-                        if (this.isFinishFirstLoading) _refreshing.value = false
-                        else _loading.value = 8
-                    }
-                )
+                .doOnComplete {
+                    disableProgressDialog()
+                    _items.value = weathers
+                }
+                .subscribe({
+                    weathers.add(it)
+                }, {
+                    disableProgressDialog()
+                })
         )
+    }
+
+    private fun disableProgressDialog() {
+        _refreshing.value = false
+        _loading.value = 8
     }
 
     fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener =
