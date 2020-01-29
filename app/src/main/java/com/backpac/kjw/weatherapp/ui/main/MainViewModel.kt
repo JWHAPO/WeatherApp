@@ -15,7 +15,6 @@ import io.reactivex.Observable
  * Description: Main ViewModel
  */
 class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
-    private val query: String = "se"
     private var isFinishFirstLoading: Boolean = false
     private val weathers: MutableList<Weather> = mutableListOf()
 
@@ -34,7 +33,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     fun getWeather() {
 
         addToDisposable(
-            api.getLocations(query).with()
+            api.getLocations(BASIC_QUERY).with()
                 .flatMap { itemList ->
                     Observable.fromIterable(itemList).flatMap { item ->
                         api.getWeathers(item.woeid).with()
@@ -71,5 +70,10 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         SwipeRefreshLayout.OnRefreshListener {
             getWeather()
         }
+
+    companion object {
+        //조회시 기본으로 사용되는 query 조건
+        const val BASIC_QUERY = "se"
+    }
 
 }

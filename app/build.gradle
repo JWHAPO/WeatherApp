@@ -1,29 +1,34 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
-apply from: '../libraries.gradle'
+
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
     defaultConfig {
         applicationId "com.backpac.hapo.weatherapp"
-        minSdkVersion 18
-        targetSdkVersion 29
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions{
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     dataBinding{
@@ -36,15 +41,33 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    kapt glideDependencies.compiler
+    kapt deps.glide.compiler
 
-    implementation androidxDependencies.values()
-    implementation retrofitDependencies.values()
-    implementation glideDependencies.glide
-    implementation rxjavaDependencies.values()
-    implementation koinDependencies.values()
+    implementation deps.kotlin.stdlib
+    implementation deps.appcompat
+    implementation deps.core_ktx
+    implementation deps.constraintlayout
+    implementation deps.recyclerview
+    implementation deps.swiperefreshlayout
+    implementation deps.rxjava2
+    implementation deps.rxandroid
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.adapter_rxjava2
+    implementation deps.okhttp.logging_interceptor
+    implementation deps.okhttp.runtime
+    implementation deps.gson.runtime
+    implementation deps.glide.runtime
+    implementation deps.koin.core
+    implementation deps.koin.core_ext
+    implementation deps.koin.java
+    implementation deps.koin.androidx_scope
+    implementation deps.koin.androidx_viewmodel
+    implementation deps.koin.androidx_ext
 
-    testImplementation unitTestDependencies.values()
+    testImplementation deps.hamcrest.hamcrest_library
+    testImplementation deps.mockito.mockito_core
+    testImplementation deps.koin.koin_test
+    testImplementation deps.junit
 }

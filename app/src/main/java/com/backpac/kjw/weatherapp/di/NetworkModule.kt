@@ -26,16 +26,17 @@ val networkModule = module {
     single { GsonBuilder().create() }
 
     single {
+
+        val logger = HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
+        }
+
         OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-            addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                    else HttpLoggingInterceptor.Level.NONE
-                }
-            )
+            addInterceptor(logger)
         }.build()
     }
 

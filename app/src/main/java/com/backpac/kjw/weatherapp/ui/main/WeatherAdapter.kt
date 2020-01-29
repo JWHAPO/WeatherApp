@@ -20,9 +20,6 @@ import com.backpac.kjw.weatherapp.util.DateUtil
 class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val HEADER_TYPE: Int = 0
-    private val ITEM_TYPE: Int = 1
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == HEADER_TYPE) {
             WeatherHeaderAdapterViewHolder(
@@ -56,4 +53,11 @@ class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewM
 
     class WeatherAdapterViewHolder(view: View) : BaseViewHolder<ItemWeatherBinding>(view)
     class WeatherHeaderAdapterViewHolder(view: View) : BaseViewHolder<HeaderWeatherBinding>(view)
+
+    companion object{
+        // header's view type of weather list
+        const val HEADER_TYPE: Int = 0
+        // item's view type of weather list
+        const val ITEM_TYPE: Int = 1
+    }
 }

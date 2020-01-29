@@ -8,19 +8,10 @@ import com.google.gson.annotations.SerializedName
  * Created by JEONGWOOKIM on 2020-01-23.
  * Description: ConsolidatedWeather of weather data
  */
-class ConsolidatedWeather {
-    @SerializedName("weather_state_name")
-    val weather_state_name: String = ""
-
-    @SerializedName("weather_state_abbr")
-    val weather_state_abbr: String = ""
-
-    @SerializedName("applicable_date")
-    val applicable_date: String = ""
-
-    @SerializedName("the_temp")
-    val the_temp: Double = 0.0
-
-    @SerializedName("humidity")
-    val humidity: Int = 0
-}
+data class ConsolidatedWeather(
+    @SerializedName("weather_state_name") val weather_state_name: String,
+    @SerializedName("weather_state_abbr") val weather_state_abbr: String,
+    @SerializedName("applicable_date") val applicable_date: String,
+    @SerializedName("the_temp") val the_temp: Double,
+    @SerializedName("humidity") val humidity: Int
+)
