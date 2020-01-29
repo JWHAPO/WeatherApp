@@ -17,7 +17,7 @@ import com.backpac.kjw.weatherapp.util.DateUtil
  * Created by JEONGWOOKIM on 2020-01-23.
  * Description: Weather list adapter
  */
-class WeatherAdapter(var items: List<Weather> = arrayListOf(), val vm: MainViewModel) :
+class WeatherAdapter(var items: List<Weather>, val vm: MainViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
