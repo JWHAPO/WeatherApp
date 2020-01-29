@@ -19,12 +19,16 @@ versions.koin = '2.0.1'
 versions.hamcrest = '1.3'
 versions.mockito = '3.2.0'
 versions.junit = '4.12'
+versions.espresso = '3.2.0'
+versions.atsl_core = '1.2.0'
+versions.atsl_rules = '1.2.0'
+versions.atsl_runner = '1.2.0'
 ext.versions = versions
 
 def build_versions = [:]
 build_versions.min_sdk = 16
-build_versions.target_sdk = 29
-build_versions.build_tools = "29.0.0"
+build_versions.target_sdk = 28
+build_versions.build_tools = "28.0.3"
 ext.build_versions = build_versions
 
 def deps = [:]
@@ -83,6 +87,20 @@ deps.hamcrest = hamcrest
 def mockito = [:]
 mockito.mockito_core = "org.mockito:mockito-core:$versions.mockito"
 deps.mockito = mockito
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+deps.espresso = espresso
+
+def atsl = [:]
+atsl.core = "androidx.test:core:$versions.atsl_core"
+atsl.runner = "androidx.test:runner:$versions.atsl_runner"
+atsl.rules = "androidx.test:rules:$versions.atsl_rules"
+deps.atsl = atsl
+
+
 
 ext.deps = deps
 
