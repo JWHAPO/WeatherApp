@@ -23,7 +23,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemNormalHeightSize">
+            android:layout_height="@dimen/itemNormalHeightSize"
+            app:onClickListener="@{vm.onClickListener(item)}">
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/item_weather_location_text_view"

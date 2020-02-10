@@ -1,10 +1,14 @@
 package com.backpac.kjw.weatherapp.ui.main
 
+import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
+import com.backpac.kjw.weatherapp.util.Event
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
 
@@ -17,6 +21,10 @@ import io.reactivex.Observable
 class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     private var isFinishFirstLoading: Boolean = false
     private val weathers: MutableList<Weather> = mutableListOf()
+    //    val clickEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    private val _navigateToDetails = MutableLiveData<Event<Weather>>()
+    val navigateToDetails: MutableLiveData<Event<Weather>>
+        get() = _navigateToDetails
 
     private val _refreshing: NotNullMutableLiveData<Boolean> = NotNullMutableLiveData(false)
     val refreshing: NotNullMutableLiveData<Boolean>
@@ -44,7 +52,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                     _items.value = weathers
 
                     if (isFinishFirstLoading) _refreshing.value = true
-                    else{
+                    else {
                         loading.value = 0
                         isFinishFirstLoading = true
                     }
@@ -70,6 +78,12 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         SwipeRefreshLayout.OnRefreshListener {
             getWeather()
         }
+
+    fun onClickListener(weather: Weather): View.OnClickListener =
+        View.OnClickListener {
+            _navigateToDetails.value = Event(weather)
+        }
+
 
     companion object {
         //조회시 기본으로 사용되는 query 조건

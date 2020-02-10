@@ -1,5 +1,6 @@
 package com.backpac.kjw.weatherapp.ui.main
 
+import androidx.lifecycle.Observer
 import com.backpac.kjw.weatherapp.BR
 import com.backpac.kjw.weatherapp.R
 import com.backpac.kjw.weatherapp.databinding.MainLayoutBinding
@@ -24,5 +25,12 @@ class MainActivity : BaseActivity<MainLayoutBinding, MainViewModel>() {
 
     override fun init() {
         mainViewModel.getWeather()
+
+        mainViewModel.navigateToDetails.observe(this,
+            Observer { it ->
+                it.getContentIfNotHandled()?.let {
+                    print(it.title)
+                }
+            })
     }
 }
