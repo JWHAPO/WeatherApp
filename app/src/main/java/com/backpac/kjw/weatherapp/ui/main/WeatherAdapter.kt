@@ -35,8 +35,8 @@ class WeatherAdapter(var items: List<Weather>, val vm: MainViewModel) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WeatherAdapterViewHolder) {
             holder.viewDataBinding.item = items[position]
-            holder.viewDataBinding.today = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getToday(),true) }
-            holder.viewDataBinding.tomorrow = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getTomorrow(),true) }
+            holder.viewDataBinding.today = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getDateByDays(0),true) }
+            holder.viewDataBinding.tomorrow = items[position].consolidated_weather.find { it.applicable_date.contains(DateUtil.getDateByDays(1),true) }
             holder.viewDataBinding.vm = vm
         }
     }

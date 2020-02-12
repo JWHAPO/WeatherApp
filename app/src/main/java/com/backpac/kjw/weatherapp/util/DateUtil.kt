@@ -14,19 +14,11 @@ import java.util.*
  */
 object DateUtil {
 
-    fun getToday(): String {
-        return if (Build.VERSION.SDK_INT >= 26) {
-            LocalDate.now().toString()
-        } else {
-            val cal: Calendar = Calendar.getInstance()
-            cal.time = Date()
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-
-            dateFormat.format(cal.time).toString()
-        }
-    }
-
-    fun getTomorrow(): String {
+    /**
+     * 며칠 전, 며칠 후 일자 가져오기 형식은 yyyy-MM-dd
+     * 파라미터에 0을 넣으면 오늘일자.
+     */
+    fun getDateByDays(diff: Int): String {
         return if (Build.VERSION.SDK_INT >= 26) {
             LocalDate.now().plusDays(1).toString()
         } else {
@@ -34,7 +26,7 @@ object DateUtil {
             cal.time = Date()
             val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
-            cal.add(Calendar.DATE, 1)
+            cal.add(Calendar.DATE, diff)
 
             return dateFormat.format(cal.time).toString()
         }

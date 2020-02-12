@@ -1,5 +1,6 @@
 package com.backpac.kjw.weatherapp.ui.main
 
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.backpac.kjw.weatherapp.BR
 import com.backpac.kjw.weatherapp.R
@@ -29,7 +30,7 @@ class MainActivity : BaseActivity<MainLayoutBinding, MainViewModel>() {
         mainViewModel.navigateToDetails.observe(this,
             Observer { it ->
                 it.getContentIfNotHandled()?.let {
-                    print(it.title)
+                    Toast.makeText(applicationContext, "${it.title} 날씨 클릭", Toast.LENGTH_SHORT).show()
                 }
             })
     }
