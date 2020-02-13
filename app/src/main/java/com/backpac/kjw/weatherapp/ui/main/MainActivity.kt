@@ -6,6 +6,7 @@ import com.backpac.kjw.weatherapp.BR
 import com.backpac.kjw.weatherapp.R
 import com.backpac.kjw.weatherapp.databinding.MainLayoutBinding
 import com.backpac.kjw.weatherapp.ui.base.BaseActivity
+import com.backpac.kjw.weatherapp.ui.detail.SubActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -30,7 +31,8 @@ class MainActivity : BaseActivity<MainLayoutBinding, MainViewModel>() {
         mainViewModel.navigateToDetails.observe(this,
             Observer { it ->
                 it.getContentIfNotHandled()?.let {
-                    Toast.makeText(applicationContext, "${it.title} 날씨 클릭", Toast.LENGTH_SHORT).show()
+                    val intent = SubActivity.intentFor(this, it.woeid)
+                    startActivity(intent)
                 }
             })
     }
