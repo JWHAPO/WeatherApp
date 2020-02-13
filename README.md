@@ -7,6 +7,7 @@
 
 * Kotlin
 * MVVM with AAC
+* Data Binding
 * Retrofit
 * Rxjava
 * Koin
