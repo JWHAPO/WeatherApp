@@ -29,7 +29,7 @@ class SubActivity : BaseActivity<SubLayoutBinding, MainViewModel>() {
 
     override fun init() {
         Toast.makeText(applicationContext, "${intent.extras.get("WOEID")} 입니다.", Toast.LENGTH_SHORT).show()
-
+        mainViewModel.getWeather(intent.extras.get("WOEID") as Int)
     }
 
     companion object {

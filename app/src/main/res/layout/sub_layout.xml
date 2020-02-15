@@ -21,8 +21,7 @@
         <com.backpac.kjw.weatherapp.ui.custom.SimpleWeatherView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:image="@drawable/ic_launcher_background"
-                app:title="TEST">
+                app:title="@{vm.item.title}">
 
         </com.backpac.kjw.weatherapp.ui.custom.SimpleWeatherView>
 

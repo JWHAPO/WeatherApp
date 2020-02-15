@@ -37,13 +37,16 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     val items: NotNullMutableLiveData<List<Weather>>
         get() = _items
 
-    fun getWeather() {
+    private val _item: NotNullMutableLiveData<Weather> = NotNullMutableLiveData(Weather(arrayListOf(),"",0))
+        val item: NotNullMutableLiveData<Weather>
+        get() = _item
 
+    fun getWeathers() {
         addToDisposable(
             api.getLocations(BASIC_QUERY).with()
-                .flatMap { itemList ->
-                    Observable.fromIterable(itemList).flatMap { item ->
-                        api.getWeathers(item.woeid).with()
+                .flatMap { location ->
+                    Observable.fromIterable(location).flatMap { weather ->
+                        api.getWeather(weather.woeid).with()
                     }
                 }
                 .toSortedList { t, t2 -> t.title.compareTo(t2.title) }
@@ -64,6 +67,20 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         )
     }
 
+    fun getWeather(woeid: Int){
+        addToDisposable(
+            api.getWeather(woeid).with()
+                .doOnSubscribe {
+
+                }
+                .subscribe({
+                    item.value = it
+                },{
+
+                })
+        )
+    }
+
     private fun disableProgressDialog() {
         _refreshing.value = false
         _loading.value = 8
@@ -71,7 +88,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
 
     fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener =
         SwipeRefreshLayout.OnRefreshListener {
-            getWeather()
+            getWeathers()
         }
 
     fun onClickListener(weather: Weather): View.OnClickListener =

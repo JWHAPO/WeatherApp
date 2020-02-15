@@ -18,5 +18,5 @@ interface WeatherApi {
     fun getLocations(@Query("query") query: String): Observable<List<Location>>
 
     @GET("/api/location/{woeid}")
-    fun getWeathers(@Path("woeid") woeid: Int): Observable<Weather>
+    fun getWeather(@Path("woeid") woeid: Int): Observable<Weather>
 }
