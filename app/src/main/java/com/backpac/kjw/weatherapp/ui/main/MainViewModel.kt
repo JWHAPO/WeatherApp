@@ -41,6 +41,10 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
         val item: NotNullMutableLiveData<Weather>
         get() = _item
 
+    private val _todayUrl: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
+        val todayUrl: NotNullMutableLiveData<String>
+        get() = _todayUrl
+
     fun getWeathers() {
         addToDisposable(
             api.getLocations(BASIC_QUERY).with()
@@ -75,6 +79,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                 }
                 .subscribe({
                     item.value = it
+                    todayUrl.value = it.consolidated_weather[0].weather_state_abbr
                 },{
 
                 })

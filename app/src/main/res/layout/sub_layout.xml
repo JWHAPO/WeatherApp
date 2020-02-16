@@ -21,7 +21,8 @@
         <com.backpac.kjw.weatherapp.ui.custom.SimpleWeatherView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:title="@{vm.item.title}">
+                app:title="@{vm.item.title}"
+                app:url="@{vm.todayUrl}">
 
         </com.backpac.kjw.weatherapp.ui.custom.SimpleWeatherView>
 
