@@ -9,7 +9,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.backpac.kjw.weatherapp.R
 import com.backpac.kjw.weatherapp.constant.Constants
-import com.backpac.kjw.weatherapp.data.domain.weather.ConsolidatedWeather
+import com.backpac.kjw.weatherapp.data.domain.weather.Weather
+import com.backpac.kjw.weatherapp.util.DateUtil
 import com.backpac.kjw.weatherapp.util.GlideApp
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -24,7 +25,6 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
 
     private lateinit var iconImageView: ImageView
     private lateinit var titleTextView: AppCompatTextView
-    private lateinit var urlTextView: AppCompatTextView
 
     init {
         initView()
@@ -38,7 +38,6 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
 
         iconImageView = findViewById(R.id.simple_weather_icon_image_view)
         titleTextView = findViewById(R.id.simple_weather_state_text_view)
-        urlTextView = findViewById(R.id.simple_weather_url_text_view)
     }
 
     private fun getAttrs(attrs: AttributeSet) {
@@ -52,11 +51,9 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
     private fun setTypedArray(typedArray: TypedArray) {
         val weatherImageViewResId = typedArray.getResourceId(R.styleable.SimpleWeatherView_image, 0)
         val titleTextViewResId = typedArray.getString(R.styleable.SimpleWeatherView_title)
-        val urlTextViewResId = typedArray.getString(R.styleable.SimpleWeatherView_url)
 
         iconImageView.setImageResource(weatherImageViewResId)
         titleTextView.text = titleTextViewResId
-        urlTextView.text = urlTextViewResId
         typedArray.recycle()
     }
 
@@ -68,12 +65,14 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
         titleTextView.text = title
     }
 
-    fun setUrl(url: String){
-        urlTextView.text = url
 
-        if (url == null) return
+    fun setWeather(weather: Weather){
+        titleTextView.text = weather.title
 
-        val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", url)
+        val todayIcon : String = weather.consolidated_weather.find { it.applicable_date.contains(
+            DateUtil.getDateByDays(0),true) }?.weather_state_abbr?:""
+
+        val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", todayIcon)
         GlideApp.with(context)
             .load(iconUrl)
             .diskCacheStrategy(DiskCacheStrategy.NONE)

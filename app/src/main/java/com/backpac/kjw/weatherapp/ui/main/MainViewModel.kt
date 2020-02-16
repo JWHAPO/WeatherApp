@@ -8,6 +8,7 @@ import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
+import com.backpac.kjw.weatherapp.util.DateUtil
 import com.backpac.kjw.weatherapp.util.Event
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
@@ -40,10 +41,6 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
     private val _item: NotNullMutableLiveData<Weather> = NotNullMutableLiveData(Weather(arrayListOf(),"",0))
         val item: NotNullMutableLiveData<Weather>
         get() = _item
-
-    private val _todayUrl: NotNullMutableLiveData<String> = NotNullMutableLiveData("")
-        val todayUrl: NotNullMutableLiveData<String>
-        get() = _todayUrl
 
     fun getWeathers() {
         addToDisposable(
@@ -79,7 +76,6 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
                 }
                 .subscribe({
                     item.value = it
-                    todayUrl.value = it.consolidated_weather[0].weather_state_abbr
                 },{
 
                 })

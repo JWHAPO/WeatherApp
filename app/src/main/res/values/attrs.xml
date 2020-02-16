@@ -4,7 +4,7 @@
     <declare-styleable name="SimpleWeatherView">
         <attr name="image" format="reference|integer" />
         <attr name="title" format="reference|string" />
-        <attr name="url" format="reference|string" />
+        <attr name="weather" format="reference" />
     </declare-styleable>
 
 </resources>
