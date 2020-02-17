@@ -65,7 +65,6 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
         titleTextView.text = title
     }
 
-
     fun setWeather(weather: Weather){
         titleTextView.text = weather.title
 
