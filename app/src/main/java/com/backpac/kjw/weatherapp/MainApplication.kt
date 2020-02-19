@@ -3,6 +3,7 @@ package com.backpac.kjw.weatherapp
 import android.app.Application
 import com.backpac.kjw.weatherapp.di.apiModule
 import com.backpac.kjw.weatherapp.di.networkModule
+import com.backpac.kjw.weatherapp.di.repositoryModule
 import com.backpac.kjw.weatherapp.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,7 +27,8 @@ class MainApplication : Application(){
             modules(listOf(
                 networkModule,
                 apiModule,
-                viewModelModule
+                viewModelModule,
+                repositoryModule
             ))
         }
     }

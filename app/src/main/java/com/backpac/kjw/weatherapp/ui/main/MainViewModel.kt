@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
+import com.backpac.kjw.weatherapp.repository.WeatherRepository
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.DateUtil
 import com.backpac.kjw.weatherapp.util.Event
@@ -19,7 +20,7 @@ import io.reactivex.Observable
  * Created by JEONGWOOKIM on 2020-01-23.
  * Description: Main ViewModel
  */
-class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
+class MainViewModel(private val repo: WeatherRepository) : BaseViewModel() {
     private var isFinishFirstLoading: Boolean = false
 
     private val _navigateToDetails = MutableLiveData<Event<Weather>>()
@@ -44,10 +45,10 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
 
     fun getWeathers() {
         addToDisposable(
-            api.getLocations(BASIC_QUERY).with()
+            repo.getLocations(BASIC_QUERY).with()
                 .flatMap { location ->
                     Observable.fromIterable(location).flatMap { weather ->
-                        api.getWeather(weather.woeid).with()
+                        repo.getWeather(weather.woeid).with()
                     }
                 }
                 .toSortedList { t, t2 -> t.title.compareTo(t2.title) }
@@ -70,7 +71,7 @@ class MainViewModel(private val api: WeatherApi) : BaseViewModel() {
 
     fun getWeather(woeid: Int){
         addToDisposable(
-            api.getWeather(woeid).with()
+            repo.getWeather(woeid).with()
                 .doOnSubscribe {
 
                 }

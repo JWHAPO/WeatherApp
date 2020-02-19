@@ -1,5 +1,7 @@
 package com.backpac.kjw.weatherapp.repository
 
+import com.backpac.kjw.weatherapp.data.api.WeatherApi
+
 /**
  * WeatherApp
  * Class: WeatherRepository
@@ -7,6 +9,7 @@ package com.backpac.kjw.weatherapp.repository
  * Description:
  */
 
-class WeatherRepository {
-
+class WeatherRepository(private val api: WeatherApi) {
+    fun getLocations(query: String) =  api.getLocations(query)
+    fun getWeather(woeid: Int) =  api.getWeather(woeid)
 }
