@@ -9,6 +9,7 @@
     <dimen name="itemNormalHeightSize">78dp</dimen>
     <dimen name="headerNormalHeightSize">40dp</dimen>
     <dimen name="itemNormalImageSize">68dp</dimen>
+    <dimen name="itemLargeImageSize">200dp</dimen>
 
     <!-- PADDING -->
     <dimen name="normalPaddingSize">4dp</dimen>
