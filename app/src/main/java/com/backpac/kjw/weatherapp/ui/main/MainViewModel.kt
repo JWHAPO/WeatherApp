@@ -1,15 +1,12 @@
 package com.backpac.kjw.weatherapp.ui.main
 
 import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.backpac.kjw.weatherapp.data.api.WeatherApi
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.repository.WeatherRepository
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
-import com.backpac.kjw.weatherapp.util.DateUtil
 import com.backpac.kjw.weatherapp.util.Event
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
@@ -20,7 +17,7 @@ import io.reactivex.Observable
  * Created by JEONGWOOKIM on 2020-01-23.
  * Description: Main ViewModel
  */
-class MainViewModel(private val repo: WeatherRepository) : BaseViewModel() {
+class MainViewModel(private val weatherRepository: WeatherRepository) : BaseViewModel() {
     private var isFinishFirstLoading: Boolean = false
 
     private val _navigateToDetails = MutableLiveData<Event<Weather>>()
@@ -45,10 +42,10 @@ class MainViewModel(private val repo: WeatherRepository) : BaseViewModel() {
 
     fun getWeathers() {
         addToDisposable(
-            repo.getLocations(BASIC_QUERY).with()
+            weatherRepository.getLocations(BASIC_QUERY)
                 .flatMap { location ->
                     Observable.fromIterable(location).flatMap { weather ->
-                        repo.getWeather(weather.woeid).with()
+                        weatherRepository.getWeather(weather.woeid)
                     }
                 }
                 .toSortedList { t, t2 -> t.title.compareTo(t2.title) }
@@ -71,7 +68,7 @@ class MainViewModel(private val repo: WeatherRepository) : BaseViewModel() {
 
     fun getWeather(woeid: Int){
         addToDisposable(
-            repo.getWeather(woeid).with()
+            weatherRepository.getWeather(woeid).with()
                 .doOnSubscribe {
 
                 }
