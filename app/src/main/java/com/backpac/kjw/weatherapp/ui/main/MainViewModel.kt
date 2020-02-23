@@ -68,7 +68,7 @@ class MainViewModel(private val weatherRepository: WeatherRepository) : BaseView
 
     fun getWeather(woeid: Int){
         addToDisposable(
-            weatherRepository.getWeather(woeid).with()
+            weatherRepository.getWeather(woeid)
                 .doOnSubscribe {
 
                 }

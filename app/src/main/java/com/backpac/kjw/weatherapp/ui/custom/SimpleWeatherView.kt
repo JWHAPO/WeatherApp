@@ -66,10 +66,12 @@ class SimpleWeatherView constructor(context: Context, attrs: AttributeSet) : Con
     }
 
     fun setWeather(weather: Weather){
-        titleTextView.text = weather.title
+        var today = DateUtil.getDateByDays(0)
+
+        titleTextView.text = "${weather.title} 의 $today 날씨"
 
         val todayIcon : String = weather.consolidated_weather.find { it.applicable_date.contains(
-            DateUtil.getDateByDays(0),true) }?.weather_state_abbr?:""
+            today,true) }?.weather_state_abbr?:""
 
         val iconUrl: String = Constants.WEATHER_ICON_PATH.replace("X", todayIcon)
         GlideApp.with(context)
