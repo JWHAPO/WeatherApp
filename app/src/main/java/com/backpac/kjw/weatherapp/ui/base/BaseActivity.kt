@@ -42,4 +42,36 @@ abstract class BaseActivity <T: ViewDataBinding, V: BaseViewModel> : AppCompatAc
         return this.viewDataBinding
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
 }
