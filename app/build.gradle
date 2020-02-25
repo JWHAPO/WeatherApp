@@ -71,4 +71,8 @@ dependencies {
     testImplementation deps.mockito.mockito_core
     testImplementation deps.koin.koin_test
     testImplementation deps.junit
+    androidTestImplementation deps.atsl.core
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+    androidTestImplementation deps.atsl.uiautomator
 }

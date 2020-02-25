@@ -23,10 +23,11 @@ versions.espresso = '3.2.0'
 versions.atsl_core = '1.2.0'
 versions.atsl_rules = '1.2.0'
 versions.atsl_runner = '1.2.0'
+versions.atsl_uiautomator = '2.2.0'
 ext.versions = versions
 
 def build_versions = [:]
-build_versions.min_sdk = 16
+build_versions.min_sdk = 18
 build_versions.target_sdk = 28
 build_versions.build_tools = "28.0.3"
 ext.build_versions = build_versions
@@ -98,6 +99,7 @@ def atsl = [:]
 atsl.core = "androidx.test:core:$versions.atsl_core"
 atsl.runner = "androidx.test:runner:$versions.atsl_runner"
 atsl.rules = "androidx.test:rules:$versions.atsl_rules"
+atsl.uiautomator = "androidx.test.uiautomator:uiautomator:$versions.atsl_uiautomator"
 deps.atsl = atsl
 
 
