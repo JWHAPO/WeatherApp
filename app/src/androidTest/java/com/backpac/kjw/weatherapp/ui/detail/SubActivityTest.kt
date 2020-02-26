@@ -3,17 +3,13 @@ package com.backpac.kjw.weatherapp.ui.detail
 import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.uiautomator.UiDevice
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiObject2
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.UiDevice
+import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Assert.*
-import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.CoreMatchers.`is`
 
 /**
  * WeatherApp

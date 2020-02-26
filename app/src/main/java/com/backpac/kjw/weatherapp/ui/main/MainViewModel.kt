@@ -4,12 +4,12 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
-import com.backpac.kjw.weatherapp.extension.with
 import com.backpac.kjw.weatherapp.repository.WeatherRepository
 import com.backpac.kjw.weatherapp.ui.base.BaseViewModel
 import com.backpac.kjw.weatherapp.util.Event
 import com.backpac.kjw.weatherapp.util.NotNullMutableLiveData
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 
 /**
  * WeatherApp
@@ -41,14 +41,9 @@ class MainViewModel(private val weatherRepository: WeatherRepository) : BaseView
         get() = _item
 
     fun getWeathers() {
+
         addToDisposable(
-            weatherRepository.getLocations(BASIC_QUERY)
-                .flatMap { location ->
-                    Observable.fromIterable(location).flatMap { weather ->
-                        weatherRepository.getWeather(weather.woeid)
-                    }
-                }
-                .toSortedList { t, t2 -> t.title.compareTo(t2.title) }
+            weatherRepository.getWeathers(BASIC_QUERY)
                 .doOnSubscribe {
                     _items.value = emptyList()
                     if (isFinishFirstLoading) _refreshing.value = true
