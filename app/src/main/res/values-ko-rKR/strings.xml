@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">날씨</string>
+    <string name="title">지역의 날씨</string>
+
+    <string name="header_local">지역</string>
+    <string name="header_today">오늘</string>
+    <string name="header_tomorrow">내일</string>
+</resources>
