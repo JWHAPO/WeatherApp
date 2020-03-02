@@ -25,7 +25,11 @@ class WeatherAdapter(var items: List<Weather>, val vm: MainViewModel) :
             WeatherHeaderAdapterViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.header_weather, parent, false)
             )
-        } else {
+        } else if (viewType == LOADING_TYPE) {
+            WeatherLoadingAdapterViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_loading, parent, false)
+            )
+        }else  {
             WeatherAdapterViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.item_weather, parent, false)
             )
@@ -45,7 +49,7 @@ class WeatherAdapter(var items: List<Weather>, val vm: MainViewModel) :
         return if (position == 0) {
             HEADER_TYPE
         } else {
-            ITEM_TYPE
+            if(items[position] == null) LOADING_TYPE else ITEM_TYPE
         }
     }
 
@@ -53,11 +57,14 @@ class WeatherAdapter(var items: List<Weather>, val vm: MainViewModel) :
 
     class WeatherAdapterViewHolder(view: View) : BaseViewHolder<ItemWeatherBinding>(view)
     class WeatherHeaderAdapterViewHolder(view: View) : BaseViewHolder<HeaderWeatherBinding>(view)
+    class WeatherLoadingAdapterViewHolder(view: View) : BaseViewHolder<ItemWeatherBinding>(view)
 
     companion object{
         // header's view type of weather list
         const val HEADER_TYPE: Int = 0
         // item's view type of weather list
         const val ITEM_TYPE: Int = 1
+        // item's view type of loading
+        const val LOADING_TYPE: Int = 2
     }
 }
