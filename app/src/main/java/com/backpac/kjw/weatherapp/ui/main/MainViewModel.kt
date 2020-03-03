@@ -1,7 +1,11 @@
 package com.backpac.kjw.weatherapp.ui.main
 
+import android.util.Log
 import android.view.View
+import androidx.core.view.get
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.backpac.kjw.weatherapp.data.domain.weather.Weather
 import com.backpac.kjw.weatherapp.repository.WeatherRepository
@@ -89,6 +93,28 @@ class MainViewModel(private val weatherRepository: WeatherRepository) : BaseView
         View.OnClickListener {
             _navigateToDetails.value = Event(weather)
         }
+    fun onScrollListener() : RecyclerView.OnScrollListener {
+        return object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Log.d("TAG","onScrollStateChanged: ")
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                Log.d("TAG","onScrolled: ")
+
+                val linearLayoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                if(!_refreshing.value){
+                    if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == _items.value.size  ){
+                        _refreshing.value = true
+                        Log.d("TAG","findLastCompletelyVisibleItemPosition: ")
+                    }
+                }
+
+            }
+        }
+    }
 
     companion object {
         //조회시 기본으로 사용되는 query 조건
